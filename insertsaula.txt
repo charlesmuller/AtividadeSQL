@@ -1,0 +1,55 @@
+create table tbproduto (
+pkcodprod integer not null,
+nomeprod varchar(30) not null,
+classificacaofiscalprod varchar(30),
+icmsprod float(20),
+codbarrasprod integer
+);
+
+create table tbitensdocupom(
+pkcoditemcupom integer not null,
+fkcodprod integer not null,
+fkcodcup integer not null
+);
+
+create table tbcupomfiscal(
+pkcodcup integer not null,
+numcup integer,
+datacup date
+);
+
+create table tbfornecedor(
+pkcodforn integer not null,
+nomeforn varchar(30),
+fkcodprod integer not null
+);
+
+alter table tbproduto add constraint tbproduto_pk primary key(pkcodprod)
+alter table tbitensdocupom add constraint tbitensdocupom_pk primary key(pkcoditemcupom)
+alter table tbcupomfiscal add constraint tbcupomfiscal_pk primary key(pkcodcup)
+alter table tbfornecedor add constraint tbfornecedor_pk primary key(pkcodforn)
+
+alter table tbitensdocupom add constraint tbitensdocupom_fkcodprod 
+foreign key(fkcodprod) references tbproduto(pkcodprod)
+
+alter table tbitensdocupom add constraint tbitensdocupom_fkcodcup 
+foreign key(fkcodcup) references tbcupomfiscal(pkcodcup)
+
+alter table tbfornecedor add constraint tbfornecedor_fkcodprod 
+foreign key(fkcodprod) references tbproduto(pkcodprod)
+
+
+insert into tbproduto(pkcodprod, nomeprod, classificacaofiscalprod, icmsprod, codbarrasprod) 
+values (1, 'arroz', 'abc123', 17.0, 1111);
+
+insert into tbproduto(pkcodprod, nomeprod, classificacaofiscalprod, icmsprod, codbarrasprod) 
+values (2, 'feijão', 'def345', 17.0, 2222);
+
+insert into tbproduto(pkcodprod, nomeprod, classificacaofiscalprod, icmsprod, codbarrasprod) 
+values (3, 'batata', 'ghi678', 17.0, 3333);
+
+insert into tbproduto(pkcodprod, nomeprod, classificacaofiscalprod, icmsprod, codbarrasprod) 
+values (4, 'macarrão', 'jkl901', 17.0, 4444);
+
+insert into tbcupomfiscal(pkcodcup, numcup, datacup)
+values (10, 0011, '03/11/2020');
